@@ -4,13 +4,24 @@ if [ "$EUID" -ne 0 ]
   then echo "Please run as root"
   exit
  fi
-sudo su
 
 apt-get install samba krb5-user krb5-config winbind libpam-winbind libnss-winbind
 
 # OPENTECH.LAN
 # opentech.lan
 # opentech.lan
+
+# Setup static IP and local DNS
+
+cat <<EOF_interfaces >> /etc/network/interfaces 
+auto $ethernet
+iface $ethernet inet static
+   address 10.0.0.10
+   netmask 255.255.255.0
+   gateway 10.0.0.1
+   dns-nameservers 127.0.0.1 8.8.8.8
+   dns-search 
+ EOF_interfaces
 
 systemctl stop samba-ad-dc.service smbd.service nmbd.service winbind.service
 systemctl disable samba-ad-dc.service smbd.service nmbd.service winbind.service
