@@ -4,8 +4,17 @@ if [ "$EUID" -ne 0 ]
   then echo "Please run as root"
   exit
  fi
+ 
+read -p "Full Hostname ( ei dc1.example.lan ) : " newHostname  
+
+domain=‘echo $newHostname | cut -d . -f 2,3’
+ethernet=`ls  /sys/class/net | grep -v lo` 
 
 apt-get -y install samba krb5-user krb5-config winbind libpam-winbind libnss-winbind
+
+hostnamectl set-hostname $newHostname
+
+apt-get update -y; apt-get upgrade -y; apt-get dist-upgrade -y
 
 # OPENTECH.LAN
 # opentech.lan
@@ -20,7 +29,7 @@ iface $ethernet inet static
    netmask 255.255.255.0
    gateway 10.0.0.1
    dns-nameservers 127.0.0.1 8.8.8.8
-   dns-search 
+   dns-search $domain
 EOF_interfaces
 
 systemctl stop samba-ad-dc.service smbd.service nmbd.service winbind.service
@@ -37,7 +46,7 @@ systemctl start samba-ad-dc.service
 systemctl status samba-ad-dc.service
 systemctl enable samba-ad-dc.service
 
-netstat –tulpn| egrep ‘smbd|samba’
+# netstat –tulpn| egrep ‘smbd|samba’
 
 samba-tool domain level show
 
