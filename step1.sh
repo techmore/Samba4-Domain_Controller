@@ -5,8 +5,8 @@ if [ "$EUID" -ne 0 ]
   exit
  fi
 
-read -p "Full Hostname ( ei dc1.example.lan ) : " new-hostname  
-domain=‘echo $new-hostname | cut -d . -f 2,3’
+read -p "Full Hostname ( ei dc1.example.lan ) : " newHostname  
+domain=‘echo $newHostname | cut -d . -f 2,3’
 ethernet=`ls  /sys/class/net | grep -v lo` 
 
 # Setup static IP and local DNS
@@ -22,5 +22,5 @@ iface $ethernet inet static
 EOF_interfaces
 
 apt-get update -y; apt-get upgrade -y; apt-get dist-upgrade -y
-hostnamectl set-hostname $new-hostname
+hostnamectl set-hostname $newHostname
 reboot
