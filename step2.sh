@@ -21,7 +21,7 @@ iface $ethernet inet static
    gateway 10.0.0.1
    dns-nameservers 127.0.0.1 8.8.8.8
    dns-search 
- EOF_interfaces
+EOF_interfaces
 
 systemctl stop samba-ad-dc.service smbd.service nmbd.service winbind.service
 systemctl disable samba-ad-dc.service smbd.service nmbd.service winbind.service
@@ -41,6 +41,6 @@ netstat –tulpn| egrep ‘smbd|samba’
 
 samba-tool domain level show
 
-ping -c 4 `hostname`
-ping -c 4 `hostname | cut -d . -f 2,3`
-ping -c 4 `hostname | cut -d . -f 1
+ping -c 4 'hostname'
+ping -c 4 'hostname | cut -d . -f 2,3'
+ping -c 4 'hostname | cut -d . -f 1'
