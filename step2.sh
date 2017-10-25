@@ -7,8 +7,8 @@ if [ "$EUID" -ne 0 ]
  
 read -p "Full Hostname ( ei dc1.example.lan ) : " newHostname  
 
-domain=‘echo $newHostname | cut -d . -f 2,3’
-ethernet=`ls  /sys/class/net | grep -v lo` 
+domain='echo $newHostname | cut -d . -f 2,3'
+ethernet='ls  /sys/class/net | grep -v lo' 
 
 apt-get -y install samba krb5-user krb5-config winbind libpam-winbind libnss-winbind
 
