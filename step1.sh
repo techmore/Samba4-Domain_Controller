@@ -3,7 +3,7 @@
 if [ "$EUID" -ne 0 ] 
   then echo "Please run as root"
   exit
- fi
+fi
 
 read -p "Full Hostname ( ei dc1.example.lan ) : " newHostname  
 domain=‘echo $newHostname | cut -d . -f 2,3’
