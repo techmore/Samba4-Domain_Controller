@@ -5,7 +5,7 @@ if [ "$EUID" -ne 0 ]
   exit
  fi
 
-apt-get install samba krb5-user krb5-config winbind libpam-winbind libnss-winbind
+apt-get -y install samba krb5-user krb5-config winbind libpam-winbind libnss-winbind
 
 # OPENTECH.LAN
 # opentech.lan
