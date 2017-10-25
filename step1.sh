@@ -4,9 +4,8 @@ if [ "$EUID" -ne 0 ]
   then echo "Please run as root"
   exit
  fi
-sudo su
 
-read -p “Full Hostname ( ei dc1.example.lan ) : “ new-hostname  
+read -p "Full Hostname ( ei dc1.example.lan ) : " new-hostname  
 domain=‘echo $new-hostname | cut -d . -f 2,3’
 ethernet=`ls  /sys/class/net | grep -v lo` 
 
